@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gõ Cửa Trái Tim - Match</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .match-question {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .match-option {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .match-option:hover {
+            background-color: #e0f2fe;
+        }
+        .match-option.selected {
+            background-color: #0ea5e9;
+            color: white;
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #0ea5e9;
+            transition: width 0.3s ease;
+        }
+        .compatibility-badge {
+            position: relative;
+            display: inline-block;
+        }
+        .compatibility-badge::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #10b981;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-blue-700 mb-2">Gõ Cửa Trái Tim</h1>
+            <p class="text-lg text-gray-600 italic">"Kết nối trái tim qua những câu hỏi"</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="fade-in">
+            <!-- AI Suggested Matches -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-semibold text-lg text-gray-800">Gợi ý từ AI</h3>
+                    <div class="flex items-center">
+                        <i class="fas fa-robot text-blue-500 mr-2"></i>
+                        <span class="text-sm text-gray-600">Dựa trên tính cách và sở thích của bạn</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- AI Match 1 -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 hover:shadow-md transition">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 rounded-full overflow-hidden mr-3 border-2 border-blue-200">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Profile" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Trần Thị C</h4>
+                                <p class="text-xs text-gray-500">38 tuổi • OP2</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">"Yêu thích nghệ thuật và âm nhạc, tìm người bạn đời có cùng đam mê."</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-sm">
+                                <span class="font-medium text-blue-600">85%</span>
+                                <span class="text-gray-500">phù hợp</span>
+                            </div>
+                            <button class="bg-pink-600 hover:bg-pink-700 text-white text-sm font-medium py-1 px-3 rounded-lg match-btn" data-user-id="3" data-user-name="Trần Thị C">
+                                <i class="fas fa-heart mr-1"></i> MATCH
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- AI Match 2 -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 hover:shadow-md transition">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 rounded-full overflow-hidden mr-3 border-2 border-blue-200">
+                                <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Profile" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Phạm Thị D</h4>
+                                <p class="text-xs text-gray-500">42 tuổi • OP3</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">"Giáo viên mầm non, thích du lịch và khám phá ẩm thực các vùng miền."</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-sm">
+                                <span class="font-medium text-blue-600">78%</span>
+                                <span class="text-gray-500">phù hợp</span>
+                            </div>
+                            <button class="bg-pink-600 hover:bg-pink-700 text-white text-sm font-medium py-1 px-3 rounded-lg match-btn" data-user-id="4" data-user-name="Phạm Thị D">
+                                <i class="fas fa-heart mr-1"></i> MATCH
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Your Match Questions -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-lg text-gray-800">Câu hỏi MATCH của bạn</h3>
+                    <button class="text-blue-600 hover:text-blue-800 text-sm font-medium" id="edit-questions-btn">
+                        <i class="fas fa-edit mr-1"></i> Chỉnh sửa
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-700 mb-2">1. Bạn có thích đọc sách không?</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="bg-green-50 border border-green-200 rounded p-2">
+                                <p class="text-sm">Rất thích <span class="text-xs text-green-600 ml-1">(Đáp án đúng)</span></p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded p-2">
+                                <p class="text-sm">Thỉnh thoảng</p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded p-2">
+                                <p class="text-sm">Không thích lắm</p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded p-2">
+                                <p class="text-sm">Ghét đọc sách</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-medium text-gray-700 mb-2">2. Bạn có thường xuyên tập thể dục không?</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="bg-green-50 border border-green-200 rounded p-2">
+                                <p class="text-sm">Hàng ngày <span class="text-xs text-green-600 ml-1">(Đáp án đúng)</span></p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded p-2">
+                                <p class="text-sm">Vài lần một tuần</p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded p-2">
+                                <p class="text-sm">Thỉnh thoảng</p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded p-2">
+                                <p class="text-sm">Hầu như không bao giờ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Matches -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Kết nối gần đây</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Người dùng</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Độ phù hợp</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">Nguyễn Văn A</div>
+                                            <div class="text-sm text-gray-500">OP1</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">2 giờ trước</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="compatibility-badge">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">90%</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Đã kết nối</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">Lê Thị B</div>
+                                            <div class="text-sm text-gray-500">OP2</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">1 ngày trước</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">65%</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Chờ phản hồi</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Match Modal (Hidden by default) -->
+        <div id="match-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-2/3 lg:w-1/2 shadow-lg rounded-md bg-white">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800">Trả lời câu hỏi MATCH</h3>
+                    <button onclick="closeMatchModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2">Trả lời các câu hỏi dưới đây để hệ thống đánh giá mức độ phù hợp giữa bạn và <span class="font-medium" id="match-user-name">Nguyễn Văn A</span>.</p>
+                    <div class="progress-bar mt-2 mb-4">
+                        <div id="match-progress" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600">Kết quả sẽ không được hiển thị công khai.</p>
+                </div>
+
+                <div id="match-questions-list" class="space-y-4">
+                    <!-- Question 1 -->
+                    <div class="match-question">
+                        <h4 class="font-medium text-gray-700 mb-2">1. Bạn có thích đọc sách không?</h4>
+                        <div class="space-y-2">
+                            <div class="match-option" onclick="selectOption(this)">
+                                Rất thích
+                            </div>
+                            <div class="match-option" onclick="selectOption(this)">
+                                Thỉnh thoảng
+                            </div>
+                            <div class="match-option" onclick="selectOption(this)">
+                                Không thích lắm
+                            </div>
+                            <div class="match-option" onclick="selectOption(this)">
+                                Ghét đọc sách
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="match-question">
+                        <h4 class="font-medium text-gray-700 mb-2">2. Bạn có thường xuyên tập thể dục không?</h4>
+                        <div class="space-y-2">
+                            <div class="match-option" onclick="selectOption(this)">
+                                Hàng ngày
+                            </div>
+                            <div class="match-option" onclick="selectOption(this)">
+                                Vài lần một tuần
+                            </div>
+                            <div class="match-option" onclick="selectOption(this)">
+                                Thỉnh thoảng
+                            </div>
+                            <div class="match-option" onclick="selectOption(this)">
+                                Hầu như không bao giờ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button onclick="closeMatchModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg">
+                        <i class="fas fa-times mr-2"></i> Hủy bỏ
+                    </button>
+                    <button id="submit-match" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                        <i class="fas fa-check mr-2"></i> Gửi câu trả lời
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Match Results Modal (Hidden by default) -->
+        <div id="match-results-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-2/3 lg:w-1/2 shadow-lg rounded-md bg-white">
+                <div class="text-center">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                        <i class="fas fa-heart text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mt-3" id="match-result-title">Kết quả MATCH</h3>
+                    <div class="mt-2 px-7 py-3">
+                        <p class="text-lg text-gray-600" id="match-result-message"></p>
+                        <div class="mt-4">
+                            <div class="inline-flex items-center bg-blue-100 text-blue-800 rounded-full px-4 py-2">
+                                <span class="font-medium" id="match-percentage">0%</span>
+                                <span class="ml-2">phù hợp</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <button onclick="closeMatchResultsModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg">
+                            Đóng
+                        </button>
+                        <button id="connect-after-match" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                            <i class="fas fa-comment-dots mr-2"></i> Nhắn tin
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-16 pt-8 border-t border-gray-200 text-center">
+            <p class="text-gray-600 mb-4 italic">"Tình yêu bắt đầu từ sự chân thành và thấu hiểu"</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="text-sm text-gray-500">© 2023 Gõ Cửa Trái Tim. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </div>
+
+    <script>
+        // Match button click handlers
+        document.querySelectorAll('.match-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const userId = this.getAttribute('data-user-id');
+                const userName = this.getAttribute('data-user-name');
+                openMatchModal(userId, userName);
+            });
+        });
+
+        // Open match modal
+        function openMatchModal(userId, userName) {
+            document.getElementById('match-user-name').textContent = userName;
+            document.getElementById('match-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Reset all selected options
+            document.querySelectorAll('.match-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Reset progress
+            document.getElementById('match-progress').style.width = '0%';
+        }
+
+        // Close match modal
+        function closeMatchModal() {
+            document.getElementById('match-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close match results modal
+        function closeMatchResultsModal() {
+            document.getElementById('match-results-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Select option in match questions
+        function selectOption(element) {
+            // Deselect all siblings
+            const siblings = element.parentElement.querySelectorAll('.match-option');
+            siblings.forEach(sib => {
+                sib.classList.remove('selected');
+            });
+            
+            // Select clicked element
+            element.classList.add('selected');
+            
+            // Update progress
+            updateMatchProgress();
+        }
+
+        // Update match progress
+        function updateMatchProgress() {
+            const totalQuestions = document.querySelectorAll('.match-question').length;
+            const answeredQuestions = document.querySelectorAll('.match-option.selected').length;
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            
+            document.getElementById('match-progress').style.width = `${progress}%`;
+        }
+
+        // Submit match answers
+        document.getElementById('submit-match').addEventListener('click', function() {
+            const totalQuestions = document.querySelectorAll('.match-question').length;
+            const answeredQuestions = document.querySelectorAll('.match-option.selected').length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert('Vui lòng trả lời tất cả các câu hỏi trước khi gửi!');
+                return;
+            }
+            
+            // Simulate calculating match percentage (in real app this would be server-side)
+            const matchPercentage = Math.floor(Math.random() * 30) + 70; // Random between 70-100%
+            
+            // Show results modal
+            document.getElementById('match-modal').classList.add('hidden');
+            document.getElementById('match-percentage').textContent = `${matchPercentage}%`;
+            
+            if (matchPercentage >= 80) {
+                document.getElementById('match-result-title').textContent = "Bạn có thể phù hợp!";
+                document.getElementById('match-result-message').textContent = "Bạn có thể phù hợp với người này! Dựa trên câu trả lời của bạn, hệ thống đánh giá hai bạn có nhiều điểm chung.";
+            } else {
+                document.getElementById('match-result-title').textContent = "Kết quả MATCH";
+                document.getElementById('match-result-message').textContent = "Bạn vẫn có thể kết nối với người này nếu muốn, nhưng hệ thống chưa xác nhận mức độ tương thích cao.";
+            }
+            
+            document.getElementById('match-results-modal').classList.remove('hidden');
+        });
+
+        // Connect after match
+        document.getElementById('connect-after-match').addEventListener('click', function() {
+            alert('Tính năng nhắn tin sẽ được mở sau khi người kia chấp nhận kết nối!');
+            closeMatchResultsModal();
+        });
+
+        // Edit questions button
+        document.getElementById('edit-questions-btn').addEventListener('click', function() {
+            alert('Tính năng chỉnh sửa câu hỏi MATCH sẽ được thực hiện trong phần cài đặt tài khoản!');
+        });
+    </script>
+</body>
+</html>

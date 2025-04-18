@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gõ Cửa Trái Tim - Tìm kiếm người thương</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .step-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .step-indicator.active {
+            background-color: #0ea5e9;
+            color: white;
+        }
+        .step-indicator.inactive {
+            background-color: #e5e7eb;
+            color: #6b7280;
+        }
+        .step-line {
+            height: 2px;
+            flex-grow: 1;
+            background-color: #e5e7eb;
+        }
+        .step-line.active {
+            background-color: #0ea5e9;
+        }
+        .characteristic-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .characteristic-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .characteristic-card.selected {
+            border-color: #0ea5e9;
+            background-color: #f0f9ff;
+        }
+        .image-upload-container {
+            border: 2px dashed #d1d5db;
+            transition: all 0.3s ease;
+        }
+        .image-upload-container:hover {
+            border-color: #0ea5e9;
+        }
+        .image-preview {
+            position: relative;
+        }
+        .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ef4444;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-primary-700 mb-2">Gõ Cửa Trái Tim</h1>
+            <p class="text-lg text-gray-600 italic">"Tìm kiếm người thương trong cộng đồng của bạn"</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex border-b border-gray-200 mb-8">
+            <button id="search-tab" class="px-4 py-2 font-medium text-primary-600 border-b-2 border-primary-600">
+                <i class="fas fa-search mr-2"></i> Tìm đối tượng
+            </button>
+            <button id="post-tab" class="px-4 py-2 font-medium text-gray-500 hover:text-primary-600 ml-4">
+                <i class="fas fa-plus-circle mr-2"></i> Đăng bài tìm đối tượng
+            </button>
+        </div>
+
+        <!-- Search Section -->
+        <div id="search-section" class="fade-in">
+            <!-- Search Filters -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Bộ lọc tìm kiếm</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Loại hình</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option selected>Gõ Cửa Trái Tim</option>
+                            <option>Người hẹn hò</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Khu vực</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option selected>Tất cả</option>
+                            <option>OP1</option>
+                            <option>OP2</option>
+                            <option>OP3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Giới tính</label>
+                        <div class="flex space-x-4 mt-1">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="gender" class="text-primary-600 focus:ring-primary-500" checked>
+                                <span class="ml-2">Nam</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="gender" class="text-primary-600 focus:ring-primary-500">
+                                <span class="ml-2">Nữ</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Đường</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option selected>Chọn đường</option>
+                            <option>Đường 1</option>
+                            <option>Đường 2</option>
+                            <option>Đường 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Số căn</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option selected>Chọn số căn</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <!-- More options would be added here -->
+                        </select>
+                    </div>
+                </div>
+                <button class="mt-4 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                    <i class="fas fa-filter mr-2"></i> Áp dụng bộ lọc
+                </button>
+            </div>
+
+            <!-- Search Results -->
+            <div>
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Kết quả tìm kiếm</h3>
+                <div class="space-y-4">
+                    <!-- Result 1 -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                        <div class="flex items-start">
+                            <div class="w-20 h-20 rounded-full overflow-hidden mr-4 border-2 border-primary-100">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Nguyễn Văn A</h4>
+                                        <p class="text-gray-500 text-sm">55 tuổi • Độc thân • OP1 - Đường 1 - Căn 101</p>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Online</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">"Tôi là một người đàn ông nghiêm túc, thích đọc sách và đi bộ vào buổi sáng. Đang tìm người phụ nữ hiền lành, biết lắng nghe để cùng nhau xây dựng tổ ấm."</p>
+                                <div class="mt-4 flex justify-end">
+                                    <button class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                                        <i class="fas fa-calendar-alt mr-2"></i> Đặt lịch
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result 2 -->
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                        <div class="flex items-start">
+                            <div class="w-20 h-20 rounded-full overflow-hidden mr-4 border-2 border-primary-100">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Lê Thị B</h4>
+                                        <p class="text-gray-500 text-sm">41 tuổi • OP2 - Đường 3 - Căn 205</p>
+                                    </div>
+                                    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">Offline</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">"Tôi là giáo viên tiểu học, yêu thích nấu ăn và chăm sóc cây cảnh. Mong muốn tìm được người đàn ông chân thành, có trách nhiệm để cùng chia sẻ những niềm vui trong cuộc sống."</p>
+                                <div class="mt-4 flex justify-end">
+                                    <button class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                                        <i class="fas fa-calendar-alt mr-2"></i> Đặt lịch
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-primary-600 font-medium">1</a>
+                        <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">2</a>
+                        <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-gray-500 hover:bg-gray-50">3</a>
+                        <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Section (Hidden by default) -->
+        <div id="post-section" class="hidden fade-in">
+            <!-- Step Indicator -->
+            <div class="flex items-center mb-8">
+                <div class="step-indicator active" id="step1-indicator">1</div>
+                <div class="step-line" id="step1-line"></div>
+                <div class="step-indicator inactive" id="step2-indicator">2</div>
+                <div class="step-line" id="step2-line"></div>
+                <div class="step-indicator inactive" id="step3-indicator">3</div>
+                <div class="step-line" id="step3-line"></div>
+                <div class="step-indicator inactive" id="step4-indicator">4</div>
+                <div class="step-line" id="step4-line"></div>
+                <div class="step-indicator inactive" id="step5-indicator">5</div>
+            </div>
+
+            <!-- Step 1: Basic Information -->
+            <div id="step1" class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Thông tin cơ bản</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên*</label>
+                        <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Giới tính*</label>
+                        <div class="flex space-x-4 mt-1">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="post-gender" class="text-primary-600 focus:ring-primary-500" checked>
+                                <span class="ml-2">Nam</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="post-gender" class="text-primary-600 focus:ring-primary-500">
+                                <span class="ml-2">Nữ</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ngày sinh*</label>
+                        <input type="date" class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nghề nghiệp*</label>
+                        <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" required>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Khu vực*</label>
+                    <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" required>
+                        <option selected>Chọn khu vực</option>
+                        <option>OP1</option>
+                        <option>OP2</option>
+                        <option>OP3</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Đường</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option selected>Chọn đường</option>
+                            <option>Đường 1</option>
+                            <option>Đường 2</option>
+                            <option>Đường 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Số căn</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option selected>Chọn số căn</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mục tiêu*</label>
+                    <select class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" required>
+                        <option selected>Chọn mục tiêu</option>
+                        <option>Tìm người yêu</option>
+                        <option>Bạn đồng hành</option>
+                        <option>Kết hôn</option>
+                        <option>Bạn tâm giao</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại/Zalo*</label>
+                        <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Link Facebook</label>
+                        <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500">
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button id="next-to-step2" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                        Tiếp theo <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Personality Description -->
+            <div id="step2" class="hidden bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Mô tả tính cách</h3>
+                
+                <div class="mb-6">
+                    <h4 class="font-medium text-gray-700 mb-3">Câu hỏi test tính cách nhanh (MBTI)</h4>
+                    <div class="space-y-4">
+                        <!-- Question 1 -->
+                        <div>
+                            <p class="text-sm font-medium text-gray-700 mb-2">1. Khi có thời gian rảnh, bạn thường:</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Dành thời gian với bạn bè hoặc tham gia hoạt động xã hội (Hướng ngoại)</p>
+                                </div>
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Ở một mình để nghỉ ngơi hoặc làm điều mình thích (Hướng nội)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 2 -->
+                        <div>
+                            <p class="text-sm font-medium text-gray-700 mb-2">2. Khi đưa ra quyết định, bạn thường:</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Dựa vào logic và phân tích khách quan (Tư duy)</p>
+                                </div>
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Xem xét cảm xúc và giá trị cá nhân (Cảm xúc)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- More questions would be added here -->
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mô tả bổ sung về tính cách</label>
+                    <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" rows="3"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Sở thích cá nhân</label>
+                    <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" rows="3"></textarea>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button id="back-to-step1" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg">
+                        <i class="fas fa-arrow-left mr-2"></i> Quay lại
+                    </button>
+                    <button id="next-to-step3" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                        Tiếp theo <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Ideal Partner -->
+            <div id="step3" class="hidden bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Hình mẫu lý tưởng</h3>
+                
+                <div class="mb-6">
+                    <h4 class="font-medium text-gray-700 mb-3">Câu hỏi test gu người yêu nhanh</h4>
+                    <div class="space-y-4">
+                        <!-- Question 1 -->
+                        <div>
+                            <p class="text-sm font-medium text-gray-700 mb-2">1. Bạn thích kiểu người như thế nào?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Năng động, thích phiêu lưu</p>
+                                </div>
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Điềm tĩnh, sâu sắc</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 2 -->
+                        <div>
+                            <p class="text-sm font-medium text-gray-700 mb-2">2. Bạn thích kiểu hẹn hò nào?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Những buổi hẹn thú vị, nhiều hoạt động</p>
+                                </div>
+                                <div class="characteristic-card border border-gray-200 rounded-lg p-3" onclick="selectCharacteristic(this)">
+                                    <p class="text-sm">Những buổi trò chuyện sâu sắc, tâm tình</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- More questions would be added here -->
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mô tả bổ sung về hình mẫu lý tưởng</label>
+                    <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-700 rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500" rows="3" placeholder="Tính cách, sở thích, ngoại hình..."></textarea>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button id="back-to-step2" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg">
+                        <i class="fas fa-arrow-left mr-2"></i> Quay lại
+                    </button>
+                    <button id="next-to-step4" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                        Tiếp theo <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Images -->
+            <div id="step4" class="hidden bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Hình ảnh</h3>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tải lên hình ảnh cá nhân (tối đa 3 ảnh)</label>
+                    <div class="image-upload-container rounded-lg p-6 text-center cursor-pointer" onclick="document.getElementById('image-upload').click()">
+                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                        <p class="text-sm text-gray-500">Kéo thả ảnh vào đây hoặc nhấn để chọn</p>
+                        <p class="text-xs text-gray-400 mt-1">Định dạng: JPG, PNG. Dung lượng tối đa: 5MB/ảnh</p>
+                        <input type="file" id="image-upload" class="hidden" accept="image/*" multiple onchange="handleImageUpload(event)">
+                    </div>
+                </div>
+
+                <div id="image-preview-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <!-- Image previews will be added here -->
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button id="back-to-step3" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg">
+                        <i class="fas fa-arrow-left mr-2"></i> Quay lại
+                    </button>
+                    <button id="next-to-step5" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                        Tiếp theo <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Resident Verification -->
+            <div id="step5" class="hidden bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="font-semibold text-lg text-gray-800 mb-4">Xác nhận cư dân</h3>
+                
+                <div class="mb-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-primary-500 text-xl mt-1 mr-2"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Vui lòng cung cấp bằng chứng xác minh bạn là cư dân của khu đô thị để đảm bảo tính minh bạch và an toàn cho cộng đồng.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ảnh chụp màn hình app cư dân</label>
+                        <div class="image-upload-container rounded-lg p-6 text-center cursor-pointer" onclick="document.getElementById('resident-proof').click()">
+                            <i class="fas fa-camera text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-500">Nhấn để tải lên ảnh chụp màn hình</p>
+                            <input type="file" id="resident-proof" class="hidden" accept="image/*" onchange="handleResidentProofUpload(event)">
+                        </div>
+                        <div id="resident-proof-preview" class="mt-2 hidden">
+                            <div class="image-preview relative">
+                                <img id="resident-proof-image" src="#" alt="Resident Proof" class="w-full h-32 object-contain border border-gray-200 rounded-lg">
+                                <div class="remove-image" onclick="removeResidentProof()">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ảnh chụp CCCD (nếu không phải cư dân)</label>
+                        <div class="image-upload-container rounded-lg p-6 text-center cursor-pointer" onclick="document.getElementById('id-card').click()">
+                            <i class="fas fa-id-card text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-500">Nhấn để tải lên ảnh CCCD</p>
+                            <input type="file" id="id-card" class="hidden" accept="image/*" onchange="handleIdCardUpload(event)">
+                        </div>
+                        <div id="id-card-preview" class="mt-2 hidden">
+                            <div class="image-preview relative">
+                                <img id="id-card-image" src="#" alt="ID Card" class="w-full h-32 object-contain border border-gray-200 rounded-lg">
+                                <div class="remove-image" onclick="removeIdCard()">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="terms" type="checkbox" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded" required>
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="terms" class="font-medium text-gray-700">Tôi đồng ý với <a href="#" class="text-primary-600 hover:text-primary-500">Điều khoản dịch vụ</a> và <a href="#" class="text-primary-600 hover:text-primary-500">Chính sách bảo mật</a></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="approval" type="checkbox" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded" required>
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="approval" class="font-medium text-gray-700">Tôi hiểu rằng bài đăng của tôi sẽ được kiểm duyệt bởi admin trước khi hiển thị</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button id="back-to-step4" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg">
+                        <i class="fas fa-arrow-left mr-2"></i> Quay lại
+                    </button>
+                    <button id="submit-post" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg">
+                        <i class="fas fa-paper-plane mr-2"></i> Gửi bài đăng
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Contact -->
+        <div class="mt-12 bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0 bg-primary-100 p-3 rounded-full">
+                    <i class="fas fa-headset text-primary-600 text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="font-semibold text-gray-800">Liên hệ admin để được hỗ trợ</h3>
+                    <p class="text-sm text-gray-600">Mọi thắc mắc về bài đăng hoặc quy trình duyệt, vui lòng liên hệ:</p>
+                    <p class="text-sm font-medium text-primary-600 mt-1">
+                        <i class="fas fa-phone-alt mr-2"></i> 039.699.3689
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-16 pt-8 border-t border-gray-200 text-center">
+            <p class="text-gray-600 mb-4 italic">"Tình yêu bắt đầu từ sự chân thành và thấu hiểu"</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-500 hover:text-primary-600"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-500 hover:text-primary-600"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-500 hover:text-primary-600"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="text-gray-500 hover:text-primary-600"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="text-sm text-gray-500">© 2025 Gõ Cửa Trái Tim. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        document.getElementById('search-tab').addEventListener('click', function() {
+            document.getElementById('search-section').classList.remove('hidden');
+            document.getElementById('post-section').classList.add('hidden');
+            this.classList.add('text-primary-600', 'border-primary-600');
+            this.classList.remove('text-gray-500');
+            document.getElementById('post-tab').classList.remove('text-primary-600', 'border-primary-600');
+            document.getElementById('post-tab').classList.add('text-gray-500');
+        });
+
+        document.getElementById('post-tab').addEventListener('click', function() {
+            document.getElementById('search-section').classList.add('hidden');
+            document.getElementById('post-section').classList.remove('hidden');
+            this.classList.add('text-primary-600', 'border-primary-600');
+            this.classList.remove('text-gray-500');
+            document.getElementById('search-tab').classList.remove('text-primary-600', 'border-primary-600');
+            document.getElementById('search-tab').classList.add('text-gray-500');
+        });
+
+        // Step navigation
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function updateStepIndicators(step) {
+            // Update step indicators
+            for (let i = 1; i <= totalSteps; i++) {
+                const indicator = document.getElementById(`step${i}-indicator`);
+                const line = document.getElementById(`step${i}-line`);
+                
+                if (i < step) {
+                    indicator.classList.remove('inactive');
+                    indicator.classList.add('active');
+                    if (line) line.classList.add('active');
+                } else if (i === step) {
+                    indicator.classList.remove('inactive');
+                    indicator.classList.add('active');
+                    if (line) line.classList.remove('active');
+                } else {
+                    indicator.classList.remove('active');
+                    indicator.classList.add('inactive');
+                    if (line) line.classList.remove('active');
+                }
+            }
+            
+            // Show/hide steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepElement = document.getElementById(`step${i}`);
+                if (i === step) {
+                    stepElement.classList.remove('hidden');
+                } else {
+                    stepElement.classList.add('hidden');
+                }
+            }
+        }
+
+        // Next buttons
+        document.getElementById('next-to-step2').addEventListener('click', function() {
+            currentStep = 2;
+            updateStepIndicators(currentStep);
+        });
+
+        document.getElementById('next-to-step3').addEventListener('click', function() {
+            currentStep = 3;
+            updateStepIndicators(currentStep);
+        });
+
+        document.getElementById('next-to-step4').addEventListener('click', function() {
+            currentStep = 4;
+            updateStepIndicators(currentStep);
+        });
+
+        document.getElementById('next-to-step5').addEventListener('click', function() {
+            currentStep = 5;
+            updateStepIndicators(currentStep);
+        });
+
+        // Back buttons
+        document.getElementById('back-to-step1').addEventListener('click', function() {
+            currentStep = 1;
+            updateStepIndicators(currentStep);
+        });
+
+        document.getElementById('back-to-step2').addEventListener('click', function() {
+            currentStep = 2;
+            updateStepIndicators(currentStep);
+        });
+
+        document.getElementById('back-to-step3').addEventListener('click', function() {
+            currentStep = 3;
+            updateStepIndicators(currentStep);
+        });
+
+        document.getElementById('back-to-step4').addEventListener('click', function() {
+            currentStep = 4;
+            updateStepIndicators(currentStep);
+        });
+
+        // Submit post
+        document.getElementById('submit-post').addEventListener('click', function() {
+            alert('Bài đăng của bạn đã được gửi thành công và đang chờ admin duyệt. Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!');
+            // Reset form and go back to search
+            document.getElementById('search-tab').click();
+            currentStep = 1;
+            updateStepIndicators(currentStep);
+        });
+
+        // Characteristic selection
+        function selectCharacteristic(element) {
+            // Deselect all siblings
+            const siblings = element.parentElement.querySelectorAll('.characteristic-card');
+            siblings.forEach(sib => {
+                sib.classList.remove('selected');
+                sib.classList.remove('border-primary-500');
+                sib.classList.add('border-gray-200');
+            });
+            
+            // Select clicked element
+            element.classList.add('selected', 'border-primary-500');
+            element.classList.remove('border-gray-200');
+        }
+
+        // Image upload handling
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('image-preview-container');
+            previewContainer.innerHTML = ''; // Clear previous previews
+            
+            // Limit to 3 images
+            const fileCount = Math.min(files.length, 3);
+            
+            for (let i = 0; i < fileCount; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'image-preview relative';
+                    previewDiv.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview" class="w-full h-32 object-cover rounded-lg border border-gray-200">
+                        <div class="remove-image" onclick="removeImage(this)">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+                    previewContainer.appendChild(previewDiv);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(element) {
+            element.parentElement.remove();
+        }
+
+        function handleResidentProofUpload(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const previewDiv = document.getElementById('resident-proof-preview');
+                const img = document.getElementById('resident-proof-image');
+                
+                img.src = e.target.result;
+                previewDiv.classList.remove('hidden');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function handleIdCardUpload(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const previewDiv = document.getElementById('id-card-preview');
+                const img = document.getElementById('id-card-image');
+                
+                img.src = e.target.result;
+                previewDiv.classList.remove('hidden');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function removeResidentProof() {
+            document.getElementById('resident-proof-preview').classList.add('hidden');
+            document.getElementById('resident-proof').value = '';
+        }
+
+        function removeIdCard() {
+            document.getElementById('id-card-preview').classList.add('hidden');
+            document.getElementById('id-card').value = '';
+        }
+    </script>
+</body>
+</html>
