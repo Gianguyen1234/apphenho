@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,40 +45,56 @@
         .profile-card {
             transition: all 0.3s ease;
         }
+
         .profile-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
+
         .blur-text {
             filter: blur(5px);
             transition: filter 0.3s ease;
             cursor: pointer;
         }
+
         .blur-text:hover {
             filter: blur(3px);
         }
+
         .blur-text.revealed {
             filter: blur(0);
         }
+
         .heart-btn {
             transition: all 0.3s ease;
         }
+
         .heart-btn:hover {
             transform: scale(1.1);
         }
+
         .heart-btn.active {
             color: #ef4444;
         }
+
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         .gradient-bg {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
         }
+
         .premium-badge {
             position: absolute;
             top: 10px;
@@ -91,12 +108,25 @@
         }
     </style>
 </head>
+
 <body class="gradient-bg font-sans">
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <!-- Header -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-primary-700 mb-2">TimDuyen</h1>
             <p class="text-lg text-gray-600 italic">"Kết nối những tâm hồn đồng điệu"</p>
+
+            <!-- Buttons -->
+            <div class="mt-6 flex justify-center gap-4">
+                <a href="match-cau-hoi.html"
+                    class="px-6 py-2 bg-primary-600 text-white font-semibold rounded-xl shadow hover:bg-primary-700 transition">
+                    Khám phá
+                </a>
+                <a href="dating.html"
+                    class="px-6 py-2 bg-white text-primary-600 border border-primary-600 font-semibold rounded-xl shadow hover:bg-primary-50 transition">
+                    Đăng ký ngay
+                </a>
+            </div>
         </div>
 
         <!-- Main Content -->
@@ -105,14 +135,16 @@
             <div class="bg-white rounded-xl shadow-md p-6 h-fit border border-gray-100">
                 <div class="text-center mb-6">
                     <div class="relative w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-primary-100">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Profile" class="w-full h-full object-cover">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Profile"
+                            class="w-full h-full object-cover">
                         <div class="premium-badge">PREMIUM</div>
                     </div>
                     <h3 class="text-xl font-semibold mt-4 text-gray-800">Ngọc Anh</h3>
                     <p class="text-gray-500">25 tuổi • Hà Nội</p>
                     <div class="flex justify-center mt-2">
                         <span class="bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">Hướng nội</span>
-                        <span class="bg-secondary-100 text-secondary-800 text-xs px-2 py-1 rounded-full ml-2">Thích đọc sách</span>
+                        <span class="bg-secondary-100 text-secondary-800 text-xs px-2 py-1 rounded-full ml-2">Thích đọc
+                            sách</span>
                     </div>
                 </div>
 
@@ -121,7 +153,8 @@
                         <h4 class="font-medium text-gray-700 flex items-center">
                             <i class="fas fa-user-circle text-primary-500 mr-2"></i> Giới thiệu
                         </h4>
-                        <p class="text-gray-600 italic mt-1">"Em thích đọc sách vào những chiều mưa và đang tìm người cùng đi bộ quanh hồ Gươm..."</p>
+                        <p class="text-gray-600 italic mt-1">"Em thích đọc sách vào những chiều mưa và đang tìm người
+                            cùng đi bộ quanh hồ Gươm..."</p>
                     </div>
 
                     <div>
@@ -139,7 +172,8 @@
                         <h4 class="font-medium text-gray-700 flex items-center">
                             <i class="fas fa-search text-primary-500 mr-2"></i> Tôi đang tìm
                         </h4>
-                        <p class="text-gray-600 mt-1">Người nghiêm túc, biết lắng nghe và thích những buổi tối yên bình.</p>
+                        <p class="text-gray-600 mt-1">Người nghiêm túc, biết lắng nghe và thích những buổi tối yên bình.
+                        </p>
                     </div>
                 </div>
 
@@ -173,13 +207,15 @@
                     </div>
 
                     <div class="mt-3 grid grid-cols-2 gap-2">
-                        <select class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500 w-full">
+                        <select
+                            class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500 w-full">
                             <option selected>Độ tuổi</option>
                             <option>18-25</option>
                             <option>26-30</option>
                             <option>31-35</option>
                         </select>
-                        <select class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500 w-full">
+                        <select
+                            class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg p-2 focus:ring-primary-500 focus:border-primary-500 w-full">
                             <option selected>Khoảng cách</option>
                             <option>Dưới 5km</option>
                             <option>Dưới 10km</option>
@@ -188,7 +224,8 @@
                     </div>
 
                     <div class="mt-3 flex space-x-2">
-                        <button class="bg-primary-50 text-primary-700 text-xs px-3 py-1 rounded-full border border-primary-100">
+                        <button
+                            class="bg-primary-50 text-primary-700 text-xs px-3 py-1 rounded-full border border-primary-100">
                             Đã học đại học
                         </button>
                         <button class="bg-gray-50 text-gray-700 text-xs px-3 py-1 rounded-full border border-gray-200">
@@ -200,10 +237,13 @@
                 <!-- Profile Cards -->
                 <div class="space-y-4" id="profiles-container">
                     <!-- Profile 1 -->
-                    <div class="profile-card bg-white rounded-xl shadow-md overflow-hidden fade-in border border-gray-100">
+                    <div
+                        class="profile-card bg-white rounded-xl shadow-md overflow-hidden fade-in border border-gray-100">
                         <div class="relative">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-48 object-cover">
-                            <button class="heart-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md text-gray-400">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile"
+                                class="w-full h-48 object-cover">
+                            <button
+                                class="heart-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md text-gray-400">
                                 <i class="far fa-heart text-xl"></i>
                             </button>
                             <div class="premium-badge">PREMIUM</div>
@@ -216,12 +256,15 @@
                                 </div>
                                 <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Online</span>
                             </div>
-                            <p class="text-gray-600 text-sm mt-2 italic blur-text">"Chàng trai thích thể thao và những chuyến đi phượt cuối tuần..."</p>
+                            <p class="text-gray-600 text-sm mt-2 italic blur-text">"Chàng trai thích thể thao và những
+                                chuyến đi phượt cuối tuần..."</p>
                             <div class="flex justify-between items-center mt-4">
-                                <button class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
+                                <button
+                                    class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
                                     <i class="fas fa-eye mr-1"></i> Xem thêm
                                 </button>
-                                <button class="bg-primary-600 hover:bg-primary-700 text-white text-sm px-3 py-1 rounded-full">
+                                <button
+                                    class="bg-primary-600 hover:bg-primary-700 text-white text-sm px-3 py-1 rounded-full">
                                     Kết nối <i class="fas fa-comment ml-1"></i>
                                 </button>
                             </div>
@@ -229,10 +272,13 @@
                     </div>
 
                     <!-- Profile 2 -->
-                    <div class="profile-card bg-white rounded-xl shadow-md overflow-hidden fade-in border border-gray-100">
+                    <div
+                        class="profile-card bg-white rounded-xl shadow-md overflow-hidden fade-in border border-gray-100">
                         <div class="relative">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-full h-48 object-cover">
-                            <button class="heart-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md text-gray-400">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile"
+                                class="w-full h-48 object-cover">
+                            <button
+                                class="heart-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md text-gray-400">
                                 <i class="far fa-heart text-xl"></i>
                             </button>
                         </div>
@@ -244,12 +290,15 @@
                                 </div>
                                 <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">Offline</span>
                             </div>
-                            <p class="text-gray-600 text-sm mt-2 italic blur-text">"Cô gái yêu động vật và thích nấu những món ăn truyền thống..."</p>
+                            <p class="text-gray-600 text-sm mt-2 italic blur-text">"Cô gái yêu động vật và thích nấu
+                                những món ăn truyền thống..."</p>
                             <div class="flex justify-between items-center mt-4">
-                                <button class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
+                                <button
+                                    class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
                                     <i class="fas fa-eye mr-1"></i> Xem thêm
                                 </button>
-                                <button class="bg-primary-600 hover:bg-primary-700 text-white text-sm px-3 py-1 rounded-full">
+                                <button
+                                    class="bg-primary-600 hover:bg-primary-700 text-white text-sm px-3 py-1 rounded-full">
                                     Kết nối <i class="fas fa-comment ml-1"></i>
                                 </button>
                             </div>
@@ -258,7 +307,8 @@
                 </div>
 
                 <!-- Load More Button -->
-                <button id="load-more" class="w-full bg-white hover:bg-gray-50 text-primary-600 font-medium py-2 px-4 rounded-xl shadow-md border border-gray-200 transition">
+                <button id="load-more"
+                    class="w-full bg-white hover:bg-gray-50 text-primary-600 font-medium py-2 px-4 rounded-xl shadow-md border border-gray-200 transition">
                     Tải thêm hồ sơ <i class="fas fa-chevron-down ml-1"></i>
                 </button>
             </div>
@@ -271,7 +321,8 @@
                         <i class="fas fa-gem text-secondary-500 mr-2"></i> Gói Kết Nối
                     </h3>
                     <div class="space-y-4">
-                        <div class="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition cursor-pointer">
+                        <div
+                            class="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition cursor-pointer">
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h4 class="font-medium text-gray-800">Gói Cơ Bản</h4>
@@ -280,7 +331,8 @@
                                 <span class="text-primary-600 font-bold">199.000đ</span>
                             </div>
                         </div>
-                        <div class="border-2 border-secondary-300 bg-secondary-50 rounded-lg p-4 hover:border-secondary-400 transition cursor-pointer">
+                        <div
+                            class="border-2 border-secondary-300 bg-secondary-50 rounded-lg p-4 hover:border-secondary-400 transition cursor-pointer">
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h4 class="font-medium text-gray-800">Gói Premium</h4>
@@ -291,11 +343,13 @@
                                     <span class="text-secondary-600 font-bold">399.000đ</span>
                                 </div>
                             </div>
-                            <div class="mt-2 text-xs text-secondary-600 bg-secondary-100 px-2 py-1 rounded-full inline-block">
+                            <div
+                                class="mt-2 text-xs text-secondary-600 bg-secondary-100 px-2 py-1 rounded-full inline-block">
                                 <i class="fas fa-crown mr-1"></i> Phổ biến nhất
                             </div>
                         </div>
-                        <div class="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition cursor-pointer">
+                        <div
+                            class="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition cursor-pointer">
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h4 class="font-medium text-gray-800">Gói Đặc Biệt</h4>
@@ -305,7 +359,8 @@
                             </div>
                         </div>
                     </div>
-                    <button class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg mt-4 transition">
+                    <button
+                        class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg mt-4 transition">
                         Nâng cấp ngay <i class="fas fa-arrow-up ml-1"></i>
                     </button>
                 </div>
@@ -321,7 +376,8 @@
                                 <i class="fas fa-glass-cheers text-primary-600"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-gray-800 group-hover:text-primary-700 transition">Hẹn hò cao cấp</h4>
+                                <h4 class="font-medium text-gray-800 group-hover:text-primary-700 transition">Hẹn hò cao
+                                    cấp</h4>
                                 <p class="text-sm text-gray-600">Được sắp xếp tại nhà hàng 5 sao</p>
                             </div>
                         </div>
@@ -330,7 +386,8 @@
                                 <i class="fas fa-mountain text-primary-600"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-gray-800 group-hover:text-primary-700 transition">Du lịch cùng nhau</h4>
+                                <h4 class="font-medium text-gray-800 group-hover:text-primary-700 transition">Du lịch
+                                    cùng nhau</h4>
                                 <p class="text-sm text-gray-600">Tour du lịch dành cho cặp đôi</p>
                             </div>
                         </div>
@@ -339,12 +396,14 @@
                                 <i class="fas fa-heart text-primary-600"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-gray-800 group-hover:text-primary-700 transition">Tư vấn tình cảm</h4>
+                                <h4 class="font-medium text-gray-800 group-hover:text-primary-700 transition">Tư vấn
+                                    tình cảm</h4>
                                 <p class="text-sm text-gray-600">Chuyên gia tâm lý hỗ trợ</p>
                             </div>
                         </div>
                     </div>
-                    <button class="w-full bg-white hover:bg-gray-50 text-primary-600 font-medium py-2 px-4 rounded-lg mt-4 border border-primary-300 transition">
+                    <button
+                        class="w-full bg-white hover:bg-gray-50 text-primary-600 font-medium py-2 px-4 rounded-lg mt-4 border border-primary-300 transition">
                         Khám phá <i class="fas fa-plus ml-1"></i>
                     </button>
                 </div>
@@ -354,7 +413,8 @@
                     <h3 class="font-semibold text-lg text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-shield-alt text-secondary-500 mr-2"></i> Xác minh danh tính
                     </h3>
-                    <p class="text-sm text-gray-600 mb-4">Tăng độ tin cậy và cơ hội kết nối bằng cách xác minh hồ sơ của bạn</p>
+                    <p class="text-sm text-gray-600 mb-4">Tăng độ tin cậy và cơ hội kết nối bằng cách xác minh hồ sơ của
+                        bạn</p>
                     <div class="space-y-3">
                         <div class="flex items-center">
                             <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-2">
@@ -381,7 +441,8 @@
                             <span class="text-sm text-gray-700">Xác minh thu nhập</span>
                         </div>
                     </div>
-                    <button class="w-full bg-white hover:bg-gray-50 text-primary-600 font-medium py-2 px-4 rounded-lg mt-4 border border-primary-300 transition">
+                    <button
+                        class="w-full bg-white hover:bg-gray-50 text-primary-600 font-medium py-2 px-4 rounded-lg mt-4 border border-primary-300 transition">
                         Xác minh ngay <i class="fas fa-shield-alt ml-1"></i>
                     </button>
                 </div>
@@ -392,15 +453,18 @@
         <div class="mt-16">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Những Câu Chuyện Đẹp</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:border-primary-300 transition cursor-pointer">
+                <div
+                    class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:border-primary-300 transition cursor-pointer">
                     <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="w-12 h-12 rounded-full mr-3 border-2 border-primary-100">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User"
+                            class="w-12 h-12 rounded-full mr-3 border-2 border-primary-100">
                         <div>
                             <h4 class="font-medium">Hương Giang</h4>
                             <p class="text-sm text-gray-500">Hà Nội • Kết hôn 2022</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic">"Sau 3 tháng sử dụng TimDuyen, tôi đã gặp được người bạn đời của mình. Cảm ơn nền tảng đã giúp chúng tôi kết nối!"</p>
+                    <p class="text-gray-600 italic">"Sau 3 tháng sử dụng TimDuyen, tôi đã gặp được người bạn đời của
+                        mình. Cảm ơn nền tảng đã giúp chúng tôi kết nối!"</p>
                     <div class="flex mt-4">
                         <i class="fas fa-star text-yellow-400"></i>
                         <i class="fas fa-star text-yellow-400"></i>
@@ -409,15 +473,18 @@
                         <i class="fas fa-star text-yellow-400"></i>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:border-primary-300 transition cursor-pointer">
+                <div
+                    class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:border-primary-300 transition cursor-pointer">
                     <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User" class="w-12 h-12 rounded-full mr-3 border-2 border-primary-100">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User"
+                            class="w-12 h-12 rounded-full mr-3 border-2 border-primary-100">
                         <div>
                             <h4 class="font-medium">Trung Kiên</h4>
                             <p class="text-sm text-gray-500">Đà Nẵng • Đang hẹn hò</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic">"Tôi thích cách TimDuyen giúp mọi người nghiêm túc trong tình yêu. Đã có 5 cuộc hẹn và tôi đang tìm hiểu một cô gái rất tuyệt."</p>
+                    <p class="text-gray-600 italic">"Tôi thích cách TimDuyen giúp mọi người nghiêm túc trong tình yêu.
+                        Đã có 5 cuộc hẹn và tôi đang tìm hiểu một cô gái rất tuyệt."</p>
                     <div class="flex mt-4">
                         <i class="fas fa-star text-yellow-400"></i>
                         <i class="fas fa-star text-yellow-400"></i>
@@ -426,15 +493,18 @@
                         <i class="fas fa-star-half-alt text-yellow-400"></i>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:border-primary-300 transition cursor-pointer">
+                <div
+                    class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:border-primary-300 transition cursor-pointer">
                     <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="w-12 h-12 rounded-full mr-3 border-2 border-primary-100">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User"
+                            class="w-12 h-12 rounded-full mr-3 border-2 border-primary-100">
                         <div>
                             <h4 class="font-medium">Minh Ngọc</h4>
                             <p class="text-sm text-gray-500">TP.HCM • Đã đính hôn</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic">"Mô hình trả phí giúp lọc được những người thực sự nghiêm túc. Tôi đã có những cuộc trò chuyện chất lượng hơn hẳn các app miễn phí khác."</p>
+                    <p class="text-gray-600 italic">"Mô hình trả phí giúp lọc được những người thực sự nghiêm túc. Tôi
+                        đã có những cuộc trò chuyện chất lượng hơn hẳn các app miễn phí khác."</p>
                     <div class="flex mt-4">
                         <i class="fas fa-star text-yellow-400"></i>
                         <i class="fas fa-star text-yellow-400"></i>
@@ -450,9 +520,11 @@
         <div class="mt-16 pt-8 border-t border-gray-200 text-center">
             <p class="text-gray-600 mb-4 italic">"Tìm thấy tình yêu là tìm thấy chính mình trong một tâm hồn khác."</p>
             <div class="flex justify-center space-x-6 mb-6">
-                <a href="#" class="text-gray-500 hover:text-primary-600 transition"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-500 hover:text-primary-600 transition"><i
+                        class="fab fa-facebook-f"></i></a>
                 <a href="#" class="text-gray-500 hover:text-primary-600 transition"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-gray-500 hover:text-primary-600 transition"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-gray-500 hover:text-primary-600 transition"><i
+                        class="fab fa-linkedin-in"></i></a>
                 <a href="#" class="text-gray-500 hover:text-primary-600 transition"><i class="fab fa-youtube"></i></a>
             </div>
             <div class="flex justify-center space-x-4 text-sm text-gray-500 mb-4">
@@ -468,14 +540,14 @@
     <script>
         // Heart button functionality
         document.querySelectorAll('.heart-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
+            button.addEventListener('click', function (e) {
                 e.stopPropagation();
                 const icon = this.querySelector('i');
                 if (icon.classList.contains('far')) {
                     icon.classList.remove('far');
                     icon.classList.add('fas');
                     this.classList.add('active');
-                    
+
                     // Show toast notification
                     showToast('Đã thêm vào danh sách yêu thích');
                 } else {
@@ -487,7 +559,7 @@
         });
 
         // Load more profiles
-        document.getElementById('load-more').addEventListener('click', function() {
+        document.getElementById('load-more').addEventListener('click', function () {
             const profiles = [
                 {
                     img: "https://randomuser.me/api/portraits/men/75.jpg",
@@ -510,7 +582,7 @@
             ];
 
             const container = document.getElementById('profiles-container');
-            
+
             // Show loading state
             this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải...';
             this.disabled = true;
@@ -550,7 +622,7 @@
                     container.appendChild(profileCard);
 
                     // Add event listener to new heart button
-                    profileCard.querySelector('.heart-btn').addEventListener('click', function(e) {
+                    profileCard.querySelector('.heart-btn').addEventListener('click', function (e) {
                         e.stopPropagation();
                         const icon = this.querySelector('i');
                         if (icon.classList.contains('far')) {
@@ -566,7 +638,7 @@
                     });
 
                     // Add click to reveal bio
-                    profileCard.querySelector('.blur-text').addEventListener('click', function() {
+                    profileCard.querySelector('.blur-text').addEventListener('click', function () {
                         this.classList.toggle('revealed');
                     });
                 });
@@ -579,7 +651,7 @@
 
         // Click to reveal bio
         document.querySelectorAll('.blur-text').forEach(text => {
-            text.addEventListener('click', function() {
+            text.addEventListener('click', function () {
                 this.classList.toggle('revealed');
             });
         });
@@ -593,7 +665,7 @@
                 <span>${message}</span>
             `;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.classList.add('animate-fade-out');
                 setTimeout(() => {
@@ -623,4 +695,5 @@
         document.head.appendChild(style);
     </script>
 </body>
+
 </html>
